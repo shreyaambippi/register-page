@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f7f7f7;
+            background: linear-gradient(135deg, #4b5dae, #764ba2);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -114,8 +114,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e){
     const user = users.find(u => u.email === email && u.password === password);
 
     if(user){
-        
-        localStorage.setItem("loggedInUser", email);
+        // STORE FULL USER OBJECT
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
 
         alert("Login successful!");
         window.location.href = "home.html";
