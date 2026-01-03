@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    padding: 20px;
+}
+.card {
+    max-width: 400px;
+    background: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+h2 {
+    text-align: center;
+}
+p {
+    margin: 8px 0;
+}
+.logout {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="profile"></div>
+
+<script>
+const loggedEmail = localStorage.getItem("loggedInUser");
+const users = JSON.parse(localStorage.getItem("users")) || [];
+
+if (!loggedEmail) {
+    alert("Please login first!");
+    window.location.href = "login.html";
+}
+
+const user = users.find(u => u.email === loggedEmail);
+
+if (user) {
+    document.getElementById("profile").innerHTML = `
+        <h2>Welcome ${user.fullname}</h2>
+        <p><b>Age:</b> ${user.age}</p>
+        <p><b>Phone:</b> ${user.phone}</p>
+        <p><b>Email:</b> ${user.email}</p>
+        <p><b>Address:</b> ${user.address}</p>
+        <p><b>Pincode:</b> ${user.pincode}</p>
+        <button class="logout" onclick="logout()">Logout</button>
+    `;
+}
+
+function logout() {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
